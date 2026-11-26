@@ -7,7 +7,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SITE_SRC = path.join(ROOT, 'site-src');
 const ESTUDOS_DIR = path.join(ROOT, 'estudos');
 const DEFAULT_OUT = path.join(ROOT, 'site');
-const SITE_URL = 'https://leodah20.github.io/whatsapp-report-assistant';
+const SITE_URL = 'https://leodah20.github.io/runavolt-blog-publico';
 const CONTENT_BASE = '24/11/2026';
 const TRACKS = {
   base: 'Fundamentos',

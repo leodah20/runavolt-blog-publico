@@ -160,7 +160,8 @@ test('gera o site público de arquitetura e estudos sem dados operacionais', asy
 
     const sitemap = readFileSync(path.join(outDir, 'sitemap.xml'), 'utf8');
     assert.equal((sitemap.match(/<url>/g) || []).length, result.chapters + 2);
-    assert.match(readFileSync(path.join(outDir, 'robots.txt'), 'utf8'), /Sitemap: https:\/\/leodah20\.github\.io\/whatsapp-report-assistant\/sitemap\.xml/);
+    assert.match(readFileSync(path.join(outDir, 'robots.txt'), 'utf8'), /Sitemap: https:\/\/leodah20\.github\.io\/runavolt-blog-publico\/sitemap\.xml/);
+    assert.match(sitemap, /https:\/\/leodah20\.github\.io\/runavolt-blog-publico\/estudos\//);
   } finally {
     await rm(outDir, { recursive: true, force: true });
   }
