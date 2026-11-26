@@ -466,6 +466,7 @@ async function copyAssets(outDir) {
   await cp(path.join(SITE_SRC, 'vendor', 'mermaid', 'LICENSE'), path.join(mermaid, 'LICENSE'));
   await cp(path.join(ROOT, 'web', 'brand', 'fonts'), path.join(assets, 'fonts'), { recursive: true });
   await cp(path.join(ROOT, 'web', 'brand', 'runavolt.svg'), path.join(assets, 'brand', 'runavolt.svg'));
+  await cp(path.join(ROOT, 'web', 'brand', 'campo-orbital.css'), path.join(assets, 'brand', 'campo-orbital.css'));
   await cp(path.join(ROOT, 'web', 'brand', 'app-512.png'), path.join(assets, 'brand', 'app-512.png'));
 }
 
