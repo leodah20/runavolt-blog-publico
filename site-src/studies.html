@@ -1,0 +1,98 @@
+<section class="page-hero galaxy">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li><a href="{{BASE}}">Arquitetura</a></li>
+      <li>Blog de estudos</li>
+    </ul>
+    <p class="eyebrow">RUNAVOLT / GUIA DE ESTUDOS</p>
+    <h1>Da primeira mensagem <span>ao sistema inteiro.</span></h1>
+    <p class="lead">Aprenda o que acontece entre uma mensagem recebida e um chamado revisado. Comece pelo vocabulário e pelo código, siga as evidências e só depois passe para acesso remoto, segurança e continuidade.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{{BASE}}estudos/01-negocio-e-arquitetura.html">Começar pelo capítulo 1</a>
+      <a class="btn btn-line" href="{{BASE}}">Voltar à arquitetura</a>
+    </div>
+    <ul class="article-meta" aria-label="Sobre o material">
+      <li>Revisão editorial: {{CONTENT_BASE}}</li>
+      <li>Exemplos fictícios</li>
+      <li>Leitura independente do coletor</li>
+      <li>Apache-2.0</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="chapters-title">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Trilha de leitura</p>
+        <h2 id="chapters-title">Matérias e capítulos</h2>
+      </div>
+      <p>Os capítulos numerados formam uma trilha. Se já domina os pré-requisitos, filtre por matéria e vá direto ao tema.</p>
+    </div>
+    <div class="arch-tabs" role="group" aria-label="Filtrar capítulos por matéria">
+      <button class="arch-tab" type="button" data-study-track="" aria-pressed="true">Todas</button>
+      <button class="arch-tab" type="button" data-study-track="base" aria-pressed="false">Fundamentos</button>
+      <button class="arch-tab" type="button" data-study-track="produto" aria-pressed="false">Produto e dados</button>
+      <button class="arch-tab" type="button" data-study-track="operacao" aria-pressed="false">Redes e operação</button>
+    </div>
+    <div class="post-toolbar">
+      <div class="post-search">
+        <label for="post-search">Buscar</label>
+        <input id="post-search" type="search" placeholder="Título, tema ou arquivo" data-post-search autocomplete="off">
+      </div>
+      <p class="post-count" data-post-count role="status" aria-live="polite">{{POST_COUNT}} capítulos</p>
+    </div>
+    <ol class="post-grid">
+{{POSTS}}
+    </ol>
+    <p class="post-empty" data-post-empty>Nenhum capítulo corresponde à busca. Tente outro termo, como “API”, “SQLite” ou “testes”.</p>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="method-title">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Método</p>
+        <h2 id="method-title">Como estudar cada capítulo</h2>
+      </div>
+      <p>Não é preciso decorar sintaxe. A meta é conseguir explicar por que cada etapa existe e onde alterar um comportamento.</p>
+    </div>
+    <ol class="steps-list">
+      <li><div><strong>Leia e abra o código</strong><p>Use os links do capítulo para confrontar a explicação com os arquivos versionados.</p></div></li>
+      <li><div><strong>Escolha uma função</strong><p>Anote o caminho: entrada → validação → transformação → efeito → saída.</p></div></li>
+      <li><div><strong>Procure o teste</strong><p>Explique qual comportamento o teste protege e qual defeito faria a verificação falhar.</p></div></li>
+      <li><div><strong>Desenhe com dados fictícios</strong><p>Siga uma informação inventada sem consultar banco, sessão, chaves ou mensagens reais.</p></div></li>
+    </ol>
+    <h3 class="guide-title">Ordem recomendada por matéria</h3>
+    <ol class="study-guide">
+      <li><strong>Fundamentos · 1, 2, 4 e 8</strong><p>Negócio antes da sintaxe, HTTP antes do túnel. Use o laboratório como revisão, sem precisar conectar serviços.</p></li>
+      <li><strong>Produto e dados · 3, 5, 6 e 11</strong><p>Leia depois de 1–2. Entenda persistência e interface antes de julgar extração de IA e vínculos de mídia.</p></li>
+      <li><strong>Redes e operação · 7, 9, 10, 12 e 13</strong><p>Leia depois de 3–4. Aprenda a testar, siga o acesso remoto, diferencie autenticação de permissão e então inspecione e ensaie a recuperação.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="scope-title">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Escopo</p>
+        <h2 id="scope-title">Material público, dados privados</h2>
+      </div>
+      <p>Os capítulos explicam o código público e usam fontes versionadas. A instalação real permanece separada.</p>
+    </div>
+    <div class="callout callout-teal">
+      <div>
+        <h3>O que fica fora do material</h3>
+        <p>Conversas, imagens, configurações, sessão, chaves e modelos privados não são material de estudo compartilhável. O padrão de relatório de um cliente continua no contexto privado daquele projeto. Para acompanhar o produto, leia o <a href="https://github.com/leodah20/whatsapp-report-assistant#readme">README</a>, o <a href="https://github.com/leodah20/whatsapp-report-assistant/blob/main/COMANDOS.md">glossário de comandos</a> e o <a href="https://github.com/leodah20/whatsapp-report-assistant/blob/main/docs/PLANO-ESTRATEGICO.md">plano estratégico</a>.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <div>
+        <h3>Encontrou uma imprecisão?</h3>
+        <p>Abra uma <a href="https://github.com/leodah20/whatsapp-report-assistant/issues">issue no repositório</a> com o capítulo, o arquivo e o símbolo. Não inclua dados operacionais, credenciais ou conteúdo de clientes na issue.</p>
+      </div>
+    </div>
+  </div>
+</section>
