@@ -96,7 +96,7 @@ test('gera o site público de arquitetura e estudos sem dados operacionais', asy
     assert.match(home, /EXEMPLO ESTÁTICO · DADOS FICTÍCIOS/);
     assert.match(home, /GET \/api\/exemplo\/chamados/);
     assert.match(home, /198\.51\.100\.24/);
-    assert.match(home, /https:\/\/github\.com\/leodah20\/whatsapp-report-assistant/);
+    assert.match(home, /https:\/\/github\.com\/leodah20\/runavolt-blog-publico/);
     assert.match(studies, /data-post-search/);
     assert.match(studies, /class="page-hero galaxy"/);
     assert.match(studies, /Ordem recomendada por matéria/);
@@ -108,6 +108,7 @@ test('gera o site público de arquitetura e estudos sem dados operacionais', asy
 
     for (const file of htmlFiles) {
       const html = readFileSync(file, 'utf8');
+      assert.doesNotMatch(html, /href="https:\/\/github\.com\/leodah20\/whatsapp-report-assistant(?:[\/#"])/, `${path.basename(file)} aponta para repositório privado`);
       assert.doesNotMatch(html, /\{\{|\}\}/, `${path.basename(file)} manteve placeholder`);
       assert.doesNotMatch(html, /<script[^>]+src="https?:/i, `${path.basename(file)} carrega script externo`);
       assert.doesNotMatch(html, /<link[^>]+rel="stylesheet"[^>]+href="https?:/i, `${path.basename(file)} carrega estilo externo`);
@@ -119,7 +120,7 @@ test('gera o site público de arquitetura e estudos sem dados operacionais', asy
       const html = readFileSync(path.join(outDir, 'estudos', chapter), 'utf8');
       assert.match(html, /class="article-toc"/, `${chapter} sem sumário`);
       assert.match(html, /class="article-nav"/, `${chapter} sem navegação entre capítulos`);
-      assert.match(html, /https:\/\/github\.com\/leodah20\/whatsapp-report-assistant/, `${chapter} sem link para o código`);
+      assert.match(html, /https:\/\/github\.com\/leodah20\/runavolt-blog-publico/, `${chapter} sem link para o blog público`);
     }
 
     const httpChapter = readFileSync(path.join(outDir, 'estudos', '04-http-apis-e-redes.html'), 'utf8');

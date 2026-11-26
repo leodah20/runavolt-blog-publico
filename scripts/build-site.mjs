@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import { existsSync, statSync } from 'node:fs';
 import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -8,7 +7,6 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SITE_SRC = path.join(ROOT, 'site-src');
 const ESTUDOS_DIR = path.join(ROOT, 'estudos');
 const DEFAULT_OUT = path.join(ROOT, 'site');
-const REPO_URL = 'https://github.com/leodah20/whatsapp-report-assistant';
 const SITE_URL = 'https://leodah20.github.io/whatsapp-report-assistant';
 const CONTENT_BASE = '24/11/2026';
 const TRACKS = {
@@ -137,9 +135,8 @@ function rewriteHref(href, sourceDir) {
     return './' + path.posix.basename(resolved) + hash;
   }
 
-  const absolute = path.join(ROOT, resolved);
-  const type = existsSync(absolute) && statSync(absolute).isDirectory() ? 'tree' : 'blob';
-  return `${REPO_URL}/${type}/main/${encodeURI(resolved)}${hash}`;
+  // Referências à Central são mantidas como texto: seu código não é público.
+  return null;
 }
 
 function renderInline(text, sourceDir) {
@@ -154,7 +151,11 @@ function renderInline(text, sourceDir) {
   const links = [];
   output = output.replace(/\[([^\]]+)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g, (_, label, href) => {
     const token = `\u0000L${links.length}\u0000`;
-    links.push(`<a href="${escapeAttr(rewriteHref(href, sourceDir))}">${renderInline(label, sourceDir)}</a>`);
+    const target = rewriteHref(href, sourceDir);
+    const renderedLabel = renderInline(label, sourceDir);
+    links.push(target === null
+      ? `<span title="Referência a material não publicado">${renderedLabel}</span>`
+      : `<a href="${escapeAttr(target)}">${renderedLabel}</a>`);
     return token;
   });
 
