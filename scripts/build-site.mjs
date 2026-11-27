@@ -473,6 +473,7 @@ async function copyAssets(outDir) {
   await mkdir(mermaid, { recursive: true });
   await cp(path.join(SITE_SRC, 'styles.css'), path.join(assets, 'styles.css'));
   await cp(path.join(SITE_SRC, 'orbit.svg'), path.join(assets, 'orbit.svg'));
+  await cp(path.join(SITE_SRC, 'aurora.svg'), path.join(assets, 'aurora.svg'));
   await cp(path.join(SITE_SRC, 'site.js'), path.join(assets, 'site.js'));
   await cp(path.join(SITE_SRC, 'mermaid-init.js'), path.join(assets, 'mermaid-init.js'));
   await cp(path.join(SITE_SRC, 'architecture.js'), path.join(assets, 'architecture.js'));

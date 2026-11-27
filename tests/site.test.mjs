@@ -100,6 +100,7 @@ test('gera o site público de arquitetura e estudos sem dados operacionais', asy
     assert.match(studies, /data-post-search/);
     assert.match(studies, /class="page-hero galaxy"/);
     assert.match(studies, /Ordem recomendada por matéria/);
+    assert.match(studies, /class="study-reading"/);
     assert.equal((studies.match(/class="post-card"/g) || []).length, result.chapters);
     for (const track of ['base', 'produto', 'operacao']) {
       assert.ok(studies.includes(`data-study-track="${track}"`));
@@ -146,6 +147,7 @@ test('gera o site público de arquitetura e estudos sem dados operacionais', asy
     assert.ok(existsSync(path.join(outDir, 'assets', 'vendor', 'mermaid', 'LICENSE')));
     assert.ok(existsSync(path.join(outDir, 'assets', 'mermaid-init.js')));
     assert.ok(existsSync(path.join(outDir, 'assets', 'orbit.svg')));
+    assert.ok(existsSync(path.join(outDir, 'assets', 'aurora.svg')));
 
     const architectureScript = readFileSync(path.join(outDir, 'assets', 'architecture.js'), 'utf8');
     const siteScript = readFileSync(path.join(outDir, 'assets', 'site.js'), 'utf8');

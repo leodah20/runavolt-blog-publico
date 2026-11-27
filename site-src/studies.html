@@ -1,15 +1,15 @@
 <section class="page-hero galaxy">
-  <div class="container">
+  <div class="container study-hero-layout">
+    <div>
     <ul class="breadcrumb">
       <li><a href="{{BASE}}">Arquitetura</a></li>
       <li>Blog de estudos</li>
     </ul>
-    <p class="eyebrow">RUNAVOLT / GUIA DE ESTUDOS</p>
-    <h1>Blog de estudos <span>do Runavolt.</span></h1>
-    <p class="lead">Aprenda o que acontece entre uma mensagem recebida e um chamado revisado. Comece pelo vocabulário e pelo código, siga as evidências e só depois passe para acesso remoto, segurança e continuidade.</p>
+    <h1>Blog de estudos do Runavolt</h1>
+    <p class="lead">Siga o caminho de uma mensagem até virar um chamado revisado. Depois, explore as redes, o acesso remoto e a segurança da Central.</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="{{BASE}}estudos/01-negocio-e-arquitetura.html">Começar pelo capítulo 1</a>
-      <a class="btn btn-line" href="{{BASE}}">Voltar à arquitetura</a>
+      <a class="btn btn-line" href="#chapters-title">Ver matérias</a>
     </div>
     <ul class="article-meta" aria-label="Sobre o material">
       <li>Revisão editorial: {{CONTENT_BASE}}</li>
@@ -17,6 +17,12 @@
       <li>Leitura independente do coletor</li>
       <li>Apache-2.0</li>
     </ul>
+    </div>
+    <aside class="study-reading" aria-labelledby="reading-title">
+      <p>Leitura em destaque</p>
+      <h2 id="reading-title"><a href="{{BASE}}estudos/03-fluxo-de-dados.html">Fluxo dos dados e persistência</a></h2>
+      <p>Entenda como SQLite, filas e criptografia preservam a mensagem até a revisão.</p>
+    </aside>
   </div>
 </section>
 
