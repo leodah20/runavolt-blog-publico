@@ -508,6 +508,42 @@ body::before{background:
   .btn-primary{border:1px solid ButtonText}
   .galaxy h1 span{background:none;color:CanvasText;-webkit-text-fill-color:currentColor}
 }
+@media screen{
+  .chapter-index{
+    grid-template-columns:minmax(0,1fr);
+    border-block-start:2px solid var(--orbital-signal);
+  }
+  .chapter-index .post-card{
+    display:grid;grid-template-columns:minmax(13rem,1fr) minmax(14rem,1.2fr);
+    grid-template-areas:"meta summary" "title summary" "title tags";
+    column-gap:clamp(1rem,4vw,3rem);align-content:center;
+    padding:clamp(1rem,2.8vw,1.5rem) clamp(.65rem,2vw,1.5rem);
+  }
+  .chapter-index .post-card[hidden]{display:none}
+  .chapter-index .post-topline{grid-area:meta}
+  .chapter-index .post-card h2{grid-area:title;align-self:start}
+  .chapter-index .post-card>p{grid-area:summary;align-self:center}
+  .chapter-index .post-tags{grid-area:tags}
+  .chapter-index .post-card h2 a{text-underline-offset:.22em}
+  .chapter-index .post-card:is(:hover,:focus-within) h2 a{
+    color:var(--orbital-accent);text-decoration:underline;
+  }
+  .chapter-index .post-card:focus-within{outline:2px solid var(--orbital-focus);outline-offset:-2px}
+}
+@media screen and (max-width:670px){
+  .chapter-index .post-card{
+    grid-template-columns:minmax(0,1fr);
+    grid-template-areas:"meta" "title" "summary" "tags";row-gap:.5rem;
+  }
+}
+@media screen and (prefers-reduced-motion:no-preference){
+  .chapter-index .post-card{transition:background-color .14s ease-out}
+  .page-hero.galaxy h1{animation:chapter-title-arrival .38s cubic-bezier(.22,1,.36,1)}
+}
+@keyframes chapter-title-arrival{
+  from{opacity:.83;transform:translateY(4px)}
+  to{opacity:1;transform:none}
+}
 @media print{
   html{color-scheme:light}
   body{background:#fff;color:#000}

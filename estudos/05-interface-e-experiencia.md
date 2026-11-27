@@ -88,3 +88,9 @@ No fechamento:
 Observe `button` nativo, foco após ações, atributos como `aria-pressed`, avisos e CSS para larguras menores. Navegação por teclado e indicação de estado tornam a ferramenta compreensível além da aparência.
 
 **Exercício:** explique quais informações precisam ser persistidas para sobreviver ao recarregamento e quais podem existir só durante a interação, como aba aberta ou filtro de busca. Depois compare com as estratégias usadas nos arquivos da interface.
+
+### Uma identidade, superfícies diferentes
+
+No Campo Orbital, a cor de destaque indica foco, seleção ou ação; não precisa colorir toda caixa. A fila da Central privilegia comparação de chamados. No índice do blog, os números, os títulos e as descrições ajudam a percorrer a trilha sem abrir cada capítulo. No Android, a interface de trabalho vem da mesma Central Web; apenas a abertura e a mensagem de conexão são nativas.
+
+Animação curta é um reforço visual, não a única forma de indicar estado. No blog, `prefers-reduced-motion` deixa a entrada estática sem mudar o que aparece. Para testar, use Tab no índice, filtre uma matéria, confira se o foco continua visível e repita em largura de celular.
