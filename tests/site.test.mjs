@@ -104,6 +104,10 @@ test('gera o site público de arquitetura e estudos sem dados operacionais', asy
     for (const track of ['base', 'produto', 'operacao']) {
       assert.ok(studies.includes(`data-study-track="${track}"`));
       assert.ok(studies.includes(`data-track="${track}"`));
+      const group = studies.split(`data-track-section="${track}"`)[1].split('</section>')[0];
+      assert.match(group, /<h3.+data-track-count>/);
+      const chapterTracks = [...group.matchAll(/data-post data-track="([^"]+)"/g)].map(match => match[1]);
+      assert.ok(chapterTracks.length > 0 && chapterTracks.every(value => value === track));
     }
 
     for (const file of htmlFiles) {

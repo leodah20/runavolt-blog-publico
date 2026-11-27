@@ -388,11 +388,25 @@ function renderPostCard(chapter) {
     `<span class="post-number">${escapeHtml(chapter.number)}</span>`,
     `<span class="post-time">${TRACKS[chapter.track]} · ${chapter.minutes} min</span>`,
     '</div>',
-    `<h2><a href="./${escapeAttr(chapter.slug)}.html">${escapeHtml(chapter.title)}</a></h2>`,
+    `<h4><a href="./${escapeAttr(chapter.slug)}.html">${escapeHtml(chapter.title)}</a></h4>`,
     `<p>${escapeHtml(chapter.summary)}</p>`,
     `<ul class="post-tags" aria-label="Temas do capítulo">${chapter.tags.map(tag => `<li class="tag">${escapeHtml(tag)}</li>`).join('')}</ul>`,
     '</li>'
   ].join('\n');
+}
+
+function renderStudyTracks(chapters) {
+  return Object.entries(TRACKS).map(([track, label]) => {
+    const entries = chapters.filter(chapter => chapter.track === track);
+    if (!entries.length) return '';
+    return [
+      `<section class="study-track" data-track-section="${track}" aria-labelledby="study-track-${track}">`,
+      `<header class="study-track-head"><h3 id="study-track-${track}">${escapeHtml(label)}</h3><span data-track-count>${entries.length} ${entries.length === 1 ? 'capítulo' : 'capítulos'}</span></header>`,
+      '<ol class="post-grid chapter-index">',
+      ...entries.map(renderPostCard),
+      '</ol></section>'
+    ].join('\n');
+  }).join('\n');
 }
 
 function renderToc(toc) {
@@ -491,7 +505,7 @@ export async function buildSite({ outDir = DEFAULT_OUT } = {}) {
   });
   await writeFile(path.join(outDir, 'index.html'), home, 'utf8');
 
-  const studiesContent = studiesTemplate.replaceAll('{{POSTS}}', chapters.map(renderPostCard).join('\n'))
+  const studiesContent = studiesTemplate.replaceAll('{{POSTS}}', renderStudyTracks(chapters))
     .replaceAll('{{POST_COUNT}}', String(chapters.length))
     .replaceAll('{{CONTENT_BASE}}', CONTENT_BASE);
   const studies = await renderPage({
