@@ -596,6 +596,41 @@ body::before{background:
   .study-reading, .chapter-index .post-card { transition: transform 150ms cubic-bezier(.22,1,.36,1); }
   .study-reading:hover, .chapter-index .post-card:hover { transform: translateY(-2px); }
 }
+/* Aurora Profunda, laboratório editorial. Só a abertura carrega a textura. */
+@media screen {
+  body::before {
+    background:
+      radial-gradient(ellipse 29rem 56rem at 100% 48%,#44246c26,transparent 83%),
+      radial-gradient(ellipse 26rem 51rem at 0% 75%,#39205225,transparent 84%);
+  }
+  .hero.galaxy,.page-hero.galaxy {
+    position: relative; isolation: isolate; overflow: clip;
+    background: linear-gradient(112deg,#151021,#211533 72%,#171023);
+  }
+  .article-header {
+    background: radial-gradient(ellipse at 89% 10%,#3e255e,#191125 71%);
+  }
+  .study-reading {
+    box-shadow: 0 17px 42px #08040e9c, inset 0 1px #b97eff46;
+    background: linear-gradient(145deg,#30204a,#181223 76%);
+  }
+  .study-reading::before {
+    content: ""; position: absolute; pointer-events: none; z-index: 1;
+    inset: 0 auto auto 0; height: 1px; width: 74%;
+    background: linear-gradient(90deg,#d7b5ff,#a05cff91,transparent);
+  }
+  .study-reading:focus-within,.study-reading:hover {
+    box-shadow: 0 16px 38px #170b2bc9, inset 0 1px 13px -10px #d8b0ff;
+  }
+}
+@media screen and (prefers-reduced-motion:no-preference) {
+  .study-reading:focus-within::before { animation: blog-deep-selection 630ms cubic-bezier(.22,1,.36,1); }
+}
+@keyframes blog-deep-selection {
+  0% { transform: scaleX(.25); transform-origin: left; opacity: .18; }
+  62% { opacity: 1; }
+  100% { transform: none; opacity: 1; }
+}
 @media print{
   html{color-scheme:light}
   body{background:#fff;color:#000}
