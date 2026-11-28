@@ -442,7 +442,7 @@ function renderPager(chapters, current) {
 function renderArticle(chapter, chapters) {
   const { html, toc } = renderMarkdown(chapter.body, 'estudos');
   return [
-    '<section class="article-header">',
+    '<section class="article-header" data-light-field>',
     '<div class="container">',
     '<ul class="breadcrumb"><li><a href="../">Arquitetura</a></li><li><a href="./">Blog de estudos</a></li><li>Capítulo ' + escapeHtml(chapter.number) + '</li></ul>',
     `<p class="eyebrow">Capítulo ${escapeHtml(chapter.number)} · Série de estudos</p>`,

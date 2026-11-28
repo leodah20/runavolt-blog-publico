@@ -123,6 +123,7 @@ test('gera o site público de arquitetura e estudos sem dados operacionais', asy
 
     for (const chapter of readdirSync(path.join(outDir, 'estudos')).filter(file => /^\d{2}-.*\.html$/.test(file))) {
       const html = readFileSync(path.join(outDir, 'estudos', chapter), 'utf8');
+      assert.match(html, /<section class="article-header" data-light-field>/, `${chapter} sem Campo Vivo`);
       assert.match(html, /class="article-toc"/, `${chapter} sem sumário`);
       assert.match(html, /class="article-nav"/, `${chapter} sem navegação entre capítulos`);
       assert.match(html, /https:\/\/github\.com\/leodah20\/runavolt-blog-publico/, `${chapter} sem link para o blog público`);

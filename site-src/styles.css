@@ -558,7 +558,6 @@ body::before{background:
   .page-hero.galaxy {
     background:
       linear-gradient(90deg, #100b1bf2 0%, #171027ac 44%, #130e2299 100%),
-      url('./aurora.svg') right center / max(64%, 46rem) auto no-repeat,
       radial-gradient(ellipse at 83% -10%, #552b85 0%, #251943 46%, #130e22 75%);
     border-bottom-color: #584674;
   }
@@ -586,7 +585,6 @@ body::before{background:
   .study-track[data-track-section="operacao"] .study-track-head { border-inline-start-color: #95bbff; }
   .chapter-index { border-block-start: 0; }
   .chapter-index .post-card:is(:hover,:focus-within) { background: #241a39; }
-  .article-header { background: linear-gradient(90deg, #160e27f7, #160e275c), url('./aurora.svg') right 25% / max(54%, 39rem) auto no-repeat, #211437; }
 }
 @media screen and (max-width: 740px) {
   .page-studies .study-hero-layout { grid-template-columns: minmax(0, 1fr); }
@@ -607,7 +605,8 @@ body::before{background:
     position: relative; isolation: isolate; overflow: clip;
     background: linear-gradient(112deg,#151021,#211533 72%,#171023);
   }
-  .article-header {
+  .article-header[data-light-field] {
+    overflow:clip;
     background: radial-gradient(ellipse at 89% 10%,#3e255e,#191125 71%);
   }
   .study-reading {
@@ -638,7 +637,8 @@ body::before{background:
   .prose blockquote,.prose table,.prose th,.prose tr{background:#fff;color:#000}
   .diagram{display:none}
   body::before,.site-header,.site-footer,.article-toc,.article-nav,.article-cta,.skip-link{display:none!important}
-  .article-header{padding:0 0 16px;background:none}
+  .article-header[data-light-field]{padding:0 0 16px;background:none}
+  .rv-field-toggle,.rv-field-residue,.rv-light-field{display:none!important}
   .article-layout{display:block;padding:0}
   .prose a{color:#000;text-decoration:underline}
   .prose pre{background:#f4f4f4;color:#000;border:1px solid #ccc}
