@@ -481,6 +481,7 @@ async function copyAssets(outDir) {
   await mkdir(mermaid, { recursive: true });
   await cp(path.join(SITE_SRC, 'styles.css'), path.join(assets, 'styles.css'));
   await cp(path.join(SITE_SRC, 'demo.css'), path.join(assets, 'demo.css'));
+  await cp(path.join(SITE_SRC, 'demo-ops.js'), path.join(assets, 'demo-ops.js'));
   await Promise.all(DEMO_MEDIA.map(file => cp(path.join(SITE_SRC, 'demo-media', file), path.join(assets, 'demo', file))));
   await cp(path.join(SITE_SRC, 'orbit.svg'), path.join(assets, 'orbit.svg'));
   await cp(path.join(SITE_SRC, 'aurora.svg'), path.join(assets, 'aurora.svg'));
@@ -525,8 +526,9 @@ export async function buildSite({ outDir = DEFAULT_OUT } = {}) {
     canonical: SITE_URL + '/demonstracao/',
     base: '../',
     bodyClass: 'page-demo',
-    content: await readFile(path.join(SITE_SRC, 'demo.html'), 'utf8'),
-    extraHead: '<link rel="stylesheet" href="../assets/demo.css?v=diagnostico-local">',
+    content: (await readFile(path.join(SITE_SRC, 'demo.html'), 'utf8')).replace(
+      '{{OPS_DEMO}}', await readFile(path.join(SITE_SRC, 'demo-ops.html'), 'utf8')),
+    extraHead: '<link rel="stylesheet" href="../assets/demo.css?v=painel-didatico"><script defer src="../assets/demo-ops.js?v=painel-didatico"></script>',
     demoCurrent: ' aria-current="page"'
   });
   await writeFile(path.join(outDir, 'demonstracao', 'index.html'), demo, 'utf8');

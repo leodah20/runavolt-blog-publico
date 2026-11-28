@@ -1,0 +1,128 @@
+<section class="section demo-section demo-ops" id="diagnostico-local" aria-labelledby="diagnostico-title">
+  <div class="container">
+    <div class="section-head demo-ops-heading">
+      <div><p class="eyebrow">03 / OPERAÇÃO</p><h2 id="diagnostico-title">O painel que cuida da Central</h2></div>
+      <p>No dia a dia, a equipe acompanha chamados. No PC, o administrador vê o que mantém a Central funcionando e gerencia quem pode acessar cada recurso.</p>
+    </div>
+
+    <article class="demo-ops-console" data-ops-preview aria-label="Demonstração da Operação local">
+      <header class="demo-ops-console-head">
+        <div><p class="eyebrow">Runavolt / Operação</p><h3>Operação local</h3></div>
+        <span class="demo-ops-badge">Simulação · dados fictícios</span>
+      </header>
+      <div class="demo-ops-tabs" role="tablist" aria-label="Áreas da demonstração" hidden>
+        <button type="button" role="tab" id="ops-tab-visao" aria-controls="ops-preview-visao" aria-selected="true">Visão geral</button>
+        <button type="button" role="tab" id="ops-tab-http" aria-controls="ops-preview-http" aria-selected="false">Tráfego HTTP</button>
+        <button type="button" role="tab" id="ops-tab-disco" aria-controls="ops-preview-disco" aria-selected="false">Armazenamento</button>
+        <button type="button" role="tab" id="ops-tab-acesso" aria-controls="ops-preview-acesso" aria-selected="false">Administração</button>
+      </div>
+
+      <div class="demo-ops-pane" id="ops-preview-visao" role="tabpanel" aria-labelledby="ops-tab-visao" tabindex="0">
+        <div class="demo-ops-pane-head">
+          <div><h4>Serviços e diagnóstico</h4><p>Se o painel abre, mas os registros não chegam, veja qual processo parou de dar sinal.</p></div>
+          <div class="demo-ops-account-actions" data-demo-playback hidden>
+            <button class="btn btn-line demo-ops-button" type="button" data-demo-play aria-pressed="false">Reproduzir cenário</button>
+            <button class="btn btn-line demo-ops-button" type="button" data-demo-advance>Avançar uma etapa</button>
+          </div>
+        </div>
+        <div class="demo-ops-overview">
+          <dl class="demo-ops-signals">
+            <div><dt>Central e API</dt><dd class="demo-ops-badge" data-tone="ok">Acessível</dd></div>
+            <div><dt>Coleta de mensagens</dt><dd class="demo-ops-badge" data-tone="warn" data-demo-collector>Sem sinal recente</dd></div>
+            <div><dt>Sincronização de e-mail</dt><dd class="demo-ops-badge" data-tone="ok">Em dia</dd></div>
+            <div><dt>IA local</dt><dd class="demo-ops-badge" data-tone="ok">Disponível</dd></div>
+          </dl>
+          <div class="demo-ops-tracking">
+            <h5>Acompanhamento simulado</h5>
+            <dl>
+              <div><dt>Última leitura</dt><dd data-demo-clock>14:20:00</dd></div>
+              <div><dt>Processo atual</dt><dd data-demo-process>Aguardando sinal da coleta</dd></div>
+              <div><dt>Registros na fila</dt><dd data-demo-queue>3</dd></div>
+              <div><dt>Próxima execução</dt><dd>Sincronizar e-mail · 14:25</dd></div>
+            </dl>
+          </div>
+        </div>
+        <p class="demo-ops-note" role="status" data-demo-diagnosis>O que checar primeiro: a coleta. O acesso à Central e a fila são sinais independentes.</p>
+      </div>
+
+      <div class="demo-ops-pane" id="ops-preview-http" role="tabpanel" aria-labelledby="ops-tab-http" tabindex="0">
+        <div class="demo-ops-pane-head"><div><h4>Inspetor de tráfego HTTP</h4><p>Compare método, rota, resposta e latência. Selecione uma requisição para ver os detalhes.</p></div></div>
+        <div class="demo-ops-http">
+          <table class="demo-ops-requests">
+            <thead><tr><th scope="col">Hora</th><th scope="col">Requisição fictícia</th><th scope="col">HTTP</th><th scope="col">Tempo</th></tr></thead>
+            <tbody>
+              <tr><td>14:20:03</td><td><button type="button" data-demo-request="list" aria-pressed="true">GET <code>/exemplo/chamados</code></button></td><td><span class="demo-ops-badge" data-tone="ok">200</span></td><td>42 ms</td></tr>
+              <tr><td>14:20:06</td><td><button type="button" data-demo-request="log" aria-pressed="false">GET <code>/exemplo/historico</code></button></td><td><span class="demo-ops-badge" data-tone="warn">403</span></td><td>18 ms</td></tr>
+              <tr><td>14:20:11</td><td><button type="button" data-demo-request="entry" aria-pressed="false">POST <code>/exemplo/registro</code></button></td><td><span class="demo-ops-badge" data-tone="ok">201</span></td><td>86 ms</td></tr>
+            </tbody>
+          </table>
+          <div class="demo-ops-inspect" aria-live="polite">
+            <h5>Detalhe da requisição</h5>
+            <p class="demo-ops-request-name" data-demo-path>GET /exemplo/chamados</p>
+            <dl>
+              <div><dt>Resposta</dt><dd data-demo-response>200 · OK</dd></div>
+              <div><dt>Origem</dt><dd data-demo-origin>App de teste</dd></div>
+              <div><dt>Hora</dt><dd data-demo-at>14:20:03</dd></div>
+              <div><dt>Latência</dt><dd data-demo-time>42 ms</dd></div>
+              <div><dt>Recebido</dt><dd data-demo-in>0,6 kB</dd></div>
+              <div><dt>Enviado</dt><dd data-demo-out>5,1 kB</dd></div>
+            </dl>
+          </div>
+        </div>
+        <p class="demo-ops-note">O inspetor acompanha requisições HTTP, não o conteúdo de mensagens nem os pacotes da rede. Aqui, até as rotas são inventadas.</p>
+      </div>
+
+      <div class="demo-ops-pane" id="ops-preview-disco" role="tabpanel" aria-labelledby="ops-tab-disco" tabindex="0">
+        <div class="demo-ops-pane-head"><div><h4>Armazenamento e banco</h4><p>Separe o que ocupa disco do que está protegido por uma cópia ou por um teste de recuperação.</p></div></div>
+        <div class="demo-ops-overview">
+          <div class="demo-ops-storage">
+            <h5>Disco do ambiente fictício</h5>
+            <p class="demo-ops-storage-size">24 GB <small>usados de 64 GB</small></p>
+            <meter min="0" max="64" value="24" aria-label="Disco: 24 gigabytes usados de 64"></meter>
+            <dl>
+              <div><dt>Anexos arquivados</dt><dd>18,6 GB</dd></div>
+              <div><dt>Banco de dados</dt><dd>128 MB</dd></div>
+              <div><dt>Espaço livre no disco</dt><dd>40 GB</dd></div>
+            </dl>
+          </div>
+          <div class="demo-ops-tracking">
+            <h5>Backup e recuperação</h5>
+            <dl>
+              <div><dt>Último backup</dt><dd class="demo-ops-badge" data-tone="ok">Verificado</dd></div>
+              <div><dt>Último teste de restauração</dt><dd class="demo-ops-badge" data-tone="warn">Sem teste recente</dd></div>
+            </dl>
+            <p class="demo-ops-storage-note">Ter um backup não comprova que ele já foi restaurado com sucesso. O painel mostra essas checagens separadamente.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-ops-pane" id="ops-preview-acesso" role="tabpanel" aria-labelledby="ops-tab-acesso" tabindex="0">
+        <div class="demo-ops-pane-head"><div><h4>Usuários e permissões</h4><p>O administrador cria contas e escolhe o que cada pessoa pode ver ou fazer na Central.</p></div></div>
+        <div class="demo-ops-overview">
+          <div class="demo-ops-tracking">
+            <h5>Conta de demonstração</h5>
+            <p class="demo-ops-account" data-demo-account>Colaborador de exemplo</p>
+            <div class="demo-ops-account-actions" data-demo-admin hidden>
+              <button type="button" class="btn btn-line demo-ops-button" data-demo-profile="new" aria-pressed="false">Simular novo usuário</button>
+              <button type="button" class="btn btn-line demo-ops-button" data-demo-profile="edit" aria-pressed="true">Editar perfil de exemplo</button>
+            </div>
+            <p class="demo-ops-storage-note">Uma conta nova começa sem permissões. Marcar uma opção nesta vitrine não cria conta nem salva acesso.</p>
+          </div>
+          <fieldset class="demo-ops-permissions">
+            <legend>Permissões de exemplo</legend>
+            <label><input type="checkbox" data-demo-grant="cases" checked disabled> Consultar chamados</label>
+            <label><input type="checkbox" data-demo-grant="evidence" checked disabled> Ver evidências</label>
+            <label><input type="checkbox" data-demo-grant="edit" disabled> Editar chamados</label>
+            <label><input type="checkbox" data-demo-grant="attach" disabled> Anexar evidências</label>
+            <p role="status" data-demo-grants-status>2 permissões marcadas na simulação.</p>
+          </fieldset>
+        </div>
+      </div>
+    </article>
+
+    <div class="demo-ops-boundary">
+      <h3>Por que fica só no PC?</h3>
+      <p>A Central remota é para trabalhar nos chamados. A Operação concentra diagnósticos internos e decisões sobre quem ganha acesso. Por isso, o painel real fica no PC e exige acesso de administrador. Abrir um chamado no celular não dá acesso a esse painel.</p>
+    </div>
+  </div>
+</section>

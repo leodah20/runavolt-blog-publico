@@ -93,9 +93,17 @@ test('gera o site público de arquitetura e estudos sem dados operacionais', asy
     assert.match(demo, /href="#diagnostico-local"/);
     const diagnosis = demo.match(/<section [^>]*id="diagnostico-local"[\s\S]*?<\/section>/)?.[0];
     assert.ok(diagnosis, 'Faltou explicar a Operação local na demonstração');
-    assert.match(diagnosis, /Cenário fictício[\s\S]*Sem sinal recente/);
+    assert.match(diagnosis, /Simulação · dados fictícios[\s\S]*Sem sinal recente/);
     assert.match(diagnosis, /Abrir um chamado no celular não dá acesso a esse painel/);
-    assert.doesNotMatch(diagnosis, /<(?:a|img|video|script|iframe|form|button)\b|\b(?:href|src|action)=|\/api\//i, 'O cenário só pode apresentar conteúdo estático, sem superfícies administrativas.');
+    for (const label of ['Visão geral', 'Tráfego HTTP', 'Armazenamento', 'Administração']) {
+      assert.ok(diagnosis.includes('>' + label + '</button>'), 'Faltou a área: ' + label);
+    }
+    assert.equal((diagnosis.match(/role="tabpanel"/g) || []).length, 4);
+    assert.doesNotMatch(diagnosis, /<(?:a|img|video|script|iframe|form)\b|\b(?:href|src|action)=|\/api\/|type="(?:password|email)"/i, 'O cenário não pode carregar o painel real nem receber credenciais.');
+    const opsDemo = readFileSync(path.join(outDir, 'assets', 'demo-ops.js'), 'utf8');
+    assert.match(demo, /src="\.\.\/assets\/demo-ops\.js\?[^"]+"/);
+    assert.doesNotMatch(home + studies, /demo-ops\.js/);
+    assert.doesNotMatch(opsDemo, /\b(?:fetch|XMLHttpRequest|WebSocket|EventSource|sendBeacon|localStorage|sessionStorage|indexedDB|document\.cookie)\b|\/api\//, 'A simulação não usa rede nem guarda dados.');
     assert.match(home, /href="\.\/demonstracao\/">Ver a Central em ação/);
     assert.match(demo, /Demonstração<\/a>/);
     assert.match(demo, /Não é app nativo para iOS/);
