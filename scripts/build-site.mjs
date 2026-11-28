@@ -526,7 +526,7 @@ export async function buildSite({ outDir = DEFAULT_OUT } = {}) {
     base: '../',
     bodyClass: 'page-demo',
     content: await readFile(path.join(SITE_SRC, 'demo.html'), 'utf8'),
-    extraHead: '<link rel="stylesheet" href="../assets/demo.css">',
+    extraHead: '<link rel="stylesheet" href="../assets/demo.css?v=diagnostico-local">',
     demoCurrent: ' aria-current="page"'
   });
   await writeFile(path.join(outDir, 'demonstracao', 'index.html'), demo, 'utf8');

@@ -90,6 +90,12 @@ test('gera o site público de arquitetura e estudos sem dados operacionais', asy
     const home = readFileSync(path.join(outDir, 'index.html'), 'utf8');
     const studies = readFileSync(path.join(outDir, 'estudos', 'index.html'), 'utf8');
     const demo = readFileSync(path.join(outDir, 'demonstracao', 'index.html'), 'utf8');
+    assert.match(demo, /href="#diagnostico-local"/);
+    const diagnosis = demo.match(/<section [^>]*id="diagnostico-local"[\s\S]*?<\/section>/)?.[0];
+    assert.ok(diagnosis, 'Faltou explicar a Operação local na demonstração');
+    assert.match(diagnosis, /Cenário fictício[\s\S]*Sem sinal recente/);
+    assert.match(diagnosis, /Abrir um chamado no celular não dá acesso a esse painel/);
+    assert.doesNotMatch(diagnosis, /<(?:a|img|video|script|iframe|form|button)\b|\b(?:href|src|action)=|\/api\//i, 'O cenário só pode apresentar conteúdo estático, sem superfícies administrativas.');
     assert.match(home, /href="\.\/demonstracao\/">Ver a Central em ação/);
     assert.match(demo, /Demonstração<\/a>/);
     assert.match(demo, /Não é app nativo para iOS/);
