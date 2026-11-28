@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="286" viewBox="0 0 1120 286" role="img" aria-labelledby="title desc">
+  <title id="title">Blog Runavolt</title>
+  <desc id="desc">Estudos, arquitetura e demonstração. Ilustração orbital violeta sobre fundo grafite.</desc>
+  <defs>
+    <linearGradient id="beam" x1="60" y1="0" x2="955" y2="286" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#92f5dd"/><stop offset=".5" stop-color="#9465f5"/><stop offset="1" stop-color="#211e37"/>
+    </linearGradient>
+    <radialGradient id="back" cx="79%" cy="50%" r="70%">
+      <stop stop-color="#342160"/><stop offset=".63" stop-color="#151225"/><stop offset="1" stop-color="#0b0a14"/>
+    </radialGradient>
+    <radialGradient id="planet" cx="33%" cy="25%" r="85%">
+      <stop stop-color="#48316b"/><stop offset="1" stop-color="#161225"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="590" y1="80" x2="985" y2="224" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9465f5" stop-opacity=".2"/><stop offset=".4" stop-color="#c5a6ff"/><stop offset="1" stop-color="#92f5dd" stop-opacity=".78"/>
+    </linearGradient>
+    <pattern id="marks" width="20" height="9" patternUnits="userSpaceOnUse"><path d="M.5 4v5" stroke="#817298"/></pattern>
+  </defs>
+  <path d="M0 0h1097l23 23v263H23L0 263z" fill="url(#back)"/>
+  <path d="M.5.5h1096.25L1119.5 23.25V285.5H23.25L.5 262.75z" fill="none" stroke="#5b4c77"/>
+  <path d="M1 1h365" stroke="url(#beam)" stroke-width="2"/>
+  <g opacity=".49" stroke="#817298" fill="none">
+    <path d="M581 143h491M810 13v263" stroke-dasharray="2 8"/>
+    <circle cx="810" cy="143" r="114" stroke-dasharray="1 7"/>
+    <path d="M656 44h-18v18m301-18h18v18m-301 178h-18v-18m301 18h18v-18"/>
+  </g>
+  <ellipse cx="810" cy="143" rx="205" ry="53" transform="rotate(-19 810 143)" fill="none" stroke="url(#ring)"/>
+  <circle cx="810" cy="143" r="82" fill="url(#planet)" stroke="url(#ring)" stroke-width="1.5"/>
+  <g transform="rotate(-19 810 143)" fill="none" stroke="url(#ring)">
+    <path d="M605 143a205 53 0 0 0 410 0" stroke-width="1.7"/>
+    <ellipse cx="810" cy="143" rx="223" ry="66" opacity=".45" stroke-dasharray="2 6"/>
+  </g>
+  <circle cx="970" cy="138" r="3.5" fill="#92f5dd"/><circle cx="970" cy="138" r="10" fill="none" stroke="#92f5dd" opacity=".5"/>
+  <g transform="translate(59,55)">
+    <rect x=".5" y=".5" width="47" height="47" rx="9.5" fill="#181222" stroke="#66469a"/>
+    <path fill="#f4f1ea" d="M9 8h22l7 7v7l-6 6h-5l12 12H28L17 29v11H9V29l11-11h8v-3H18l-9 9Z"/>
+    <circle cx="28" cy="16.5" r="3" fill="#b69aff"/><circle cx="32.5" cy="36.5" r="2.5" fill="#7c3aed"/>
+  </g>
+  <text x="123" y="84" fill="#c5a6ff" font-family="monospace" font-size="16" letter-spacing="2">RUNAVOLT / CAMPO ORBITAL</text>
+  <text x="59" y="154" fill="#f4efff" font-family="Segoe UI, sans-serif" font-size="48" font-weight="700">Blog Runavolt<tspan fill="#92f5dd">.</tspan></text>
+  <text x="61" y="194" fill="#c9bedb" font-family="Segoe UI, sans-serif" font-size="22">Estudos, arquitetura e demonstração.</text>
+  <path d="M60 236h998v9H60z" fill="url(#marks)" opacity=".62"/><path d="M60 245h998" stroke="#5d5275"/>
+</svg>
