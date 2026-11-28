@@ -93,13 +93,26 @@ test('gera o site público de arquitetura e estudos sem dados operacionais', asy
     assert.match(demo, /href="#diagnostico-local"/);
     const diagnosis = demo.match(/<section [^>]*id="diagnostico-local"[\s\S]*?<\/section>/)?.[0];
     assert.ok(diagnosis, 'Faltou explicar a Operação local na demonstração');
-    assert.match(diagnosis, /Simulação · dados fictícios[\s\S]*Sem sinal recente/);
-    assert.match(diagnosis, /Abrir um chamado no celular não dá acesso a esse painel/);
-    for (const label of ['Visão geral', 'Tráfego HTTP', 'Armazenamento', 'Administração']) {
+    assert.match(diagnosis, /interface desktop, preenchida com dados fictícios/);
+    assert.match(diagnosis, /A Operação fica no PC/);
+    for (const label of ['Monitoramento', 'Diagnóstico', 'Armazenamento e fila', 'Inspetor HTTP', 'Gráfico e rotas', 'Segurança', 'Usuários e permissões']) {
       assert.ok(diagnosis.includes('>' + label + '</button>'), 'Faltou a área: ' + label);
     }
-    assert.equal((diagnosis.match(/role="tabpanel"/g) || []).length, 4);
-    assert.doesNotMatch(diagnosis, /<(?:a|img|video|script|iframe|form)\b|\b(?:href|src|action)=|\/api\/|type="(?:password|email)"/i, 'O cenário não pode carregar o painel real nem receber credenciais.');
+    const views = [...diagnosis.matchAll(/<img src="\.\.\/assets\/demo\/(ops-pc-[a-z-]+\.webp)" width="1440" height="(\d+)"/g)];
+    assert.equal(views.length, 7);
+    assert.equal(new Set(views.map(([, file]) => file)).size, 7);
+    for (const [, file, height] of views) {
+      const image = readFileSync(path.join(outDir, 'assets', 'demo', file));
+      assert.equal(image.subarray(0, 4).toString(), 'RIFF');
+      assert.equal(image.subarray(8, 12).toString(), 'WEBP');
+      const header = image.indexOf(Buffer.from([157, 1, 42]));
+      assert.ok(header >= 0);
+      assert.equal(image.readUInt16LE(header + 3) & 16383, 1440);
+      assert.equal(image.readUInt16LE(header + 5) & 16383, Number(height));
+    }
+    assert.doesNotMatch(diagnosis, /<(?:video|script|iframe|form)\b|\/api\/|type="(?:password|email)"/i, 'A galeria não carrega o console nem recebe credenciais.');
+    for (const [, target] of diagnosis.matchAll(/(?:src|href)="([^"]+)"/g))
+      assert.match(target, /^\.\.\/assets\/demo\/ops-pc-[a-z-]+\.webp$/);
     const opsDemo = readFileSync(path.join(outDir, 'assets', 'demo-ops.js'), 'utf8');
     assert.match(demo, /src="\.\.\/assets\/demo-ops\.js\?[^"]+"/);
     assert.doesNotMatch(home + studies, /demo-ops\.js/);
@@ -110,7 +123,7 @@ test('gera o site público de arquitetura e estudos sem dados operacionais', asy
     assert.equal((demo.match(/<video controls playsinline preload="none"/g) || []).length, 2);
     assert.doesNotMatch(demo, /\bautoplay\b|href="[^"]*(?:configuracao|operacao)|\/api\//i);
     const media = path.join(outDir, 'assets', 'demo');
-    assert.equal(readdirSync(media).length, 14);
+    assert.equal(readdirSync(media).length, 21);
     for (const type of ['pc', 'mobile']) {
       assert.equal(readFileSync(path.join(media, 'tur-' + type + '.mp4')).subarray(4, 8).toString(), 'ftyp');
       assert.match(readFileSync(path.join(media, 'tur-' + type + '.vtt'), 'utf8'), /^WEBVTT\s/);

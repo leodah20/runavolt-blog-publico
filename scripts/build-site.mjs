@@ -469,7 +469,9 @@ function renderArticle(chapter, chapters) {
 const DEMO_MEDIA = [
   'pc-fila.png', 'pc-resumo.png', 'pc-historico.png', 'pc-evidencias.png', 'pc-contexto.png',
   'pc-triagem.png', 'pc-fechamento.png', 'pc-minuta.png', 'android.png', 'ios-web.png',
-  'tur-pc.mp4', 'tur-pc.vtt', 'tur-mobile.mp4', 'tur-mobile.vtt'
+  'tur-pc.mp4', 'tur-pc.vtt', 'tur-mobile.mp4', 'tur-mobile.vtt',
+  'ops-pc-monitoramento.webp', 'ops-pc-diagnostico.webp', 'ops-pc-armazenamento.webp', 'ops-pc-http.webp',
+  'ops-pc-historico-http.webp', 'ops-pc-seguranca.webp', 'ops-pc-administracao.webp'
 ];
 
 async function copyAssets(outDir) {
@@ -528,7 +530,7 @@ export async function buildSite({ outDir = DEFAULT_OUT } = {}) {
     bodyClass: 'page-demo',
     content: (await readFile(path.join(SITE_SRC, 'demo.html'), 'utf8')).replace(
       '{{OPS_DEMO}}', await readFile(path.join(SITE_SRC, 'demo-ops.html'), 'utf8')),
-    extraHead: '<link rel="stylesheet" href="../assets/demo.css?v=painel-didatico"><script defer src="../assets/demo-ops.js?v=painel-didatico"></script>',
+    extraHead: '<link rel="stylesheet" href="../assets/demo.css?v=capturas-desktop"><script defer src="../assets/demo-ops.js?v=capturas-desktop"></script>',
     demoCurrent: ' aria-current="page"'
   });
   await writeFile(path.join(outDir, 'demonstracao', 'index.html'), demo, 'utf8');
