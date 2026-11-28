@@ -77,18 +77,30 @@ test('gera o site público de arquitetura e estudos sem dados operacionais', asy
     const result = await buildSite({ outDir });
     await assertPublicSite(outDir);
     assert.equal(result.chapters, 13);
-    assert.equal(result.pages, result.chapters + 3);
+    assert.equal(result.pages, result.chapters + 4);
 
     const files = walk(outDir);
     const htmlFiles = files.filter(file => file.endsWith('.html'));
     assert.equal(htmlFiles.length, result.pages);
 
-    for (const required of ['index.html', '404.html', 'estudos/index.html', 'robots.txt', 'sitemap.xml', '.nojekyll']) {
+    for (const required of ['index.html', '404.html', 'estudos/index.html', 'demonstracao/index.html', 'robots.txt', 'sitemap.xml', '.nojekyll']) {
       assert.ok(existsSync(path.join(outDir, required)), `faltou ${required}`);
     }
 
     const home = readFileSync(path.join(outDir, 'index.html'), 'utf8');
     const studies = readFileSync(path.join(outDir, 'estudos', 'index.html'), 'utf8');
+    const demo = readFileSync(path.join(outDir, 'demonstracao', 'index.html'), 'utf8');
+    assert.match(home, /href="\.\/demonstracao\/">Ver a Central em ação/);
+    assert.match(demo, /Demonstração<\/a>/);
+    assert.match(demo, /Não é app nativo para iOS/);
+    assert.equal((demo.match(/<video controls playsinline preload="none"/g) || []).length, 2);
+    assert.doesNotMatch(demo, /\bautoplay\b|href="[^"]*(?:configuracao|operacao)|\/api\//i);
+    const media = path.join(outDir, 'assets', 'demo');
+    assert.equal(readdirSync(media).length, 14);
+    for (const type of ['pc', 'mobile']) {
+      assert.equal(readFileSync(path.join(media, 'tur-' + type + '.mp4')).subarray(4, 8).toString(), 'ftyp');
+      assert.match(readFileSync(path.join(media, 'tur-' + type + '.vtt'), 'utf8'), /^WEBVTT\s/);
+    }
     assert.match(home, /id="arch-tabs"/);
     assert.match(home, /class="hero galaxy"/);
     assert.match(home, /orbit-visual/);
@@ -119,6 +131,7 @@ test('gera o site público de arquitetura e estudos sem dados operacionais', asy
       assert.doesNotMatch(html, /<link[^>]+rel="stylesheet"[^>]+href="https?:/i, `${path.basename(file)} carrega estilo externo`);
       assert.doesNotMatch(html, /https?:\/\/[^"'\s<>]+\.(?:ngrok-free\.dev|ts\.net)|127\.0\.0\.1:(?:8767|8773|8789)/i);
       assertInternalLinksExist(file, html);
+      assert.match(html, /data-light-field/, `${path.basename(file)} ficou sem o banner visual`);
     }
 
     for (const chapter of readdirSync(path.join(outDir, 'estudos')).filter(file => /^\d{2}-.*\.html$/.test(file))) {
@@ -166,7 +179,8 @@ test('gera o site público de arquitetura e estudos sem dados operacionais', asy
     assert.doesNotMatch(mermaidInit, /https?:\/\//);
 
     const sitemap = readFileSync(path.join(outDir, 'sitemap.xml'), 'utf8');
-    assert.equal((sitemap.match(/<url>/g) || []).length, result.chapters + 2);
+    assert.equal((sitemap.match(/<url>/g) || []).length, result.chapters + 3);
+    assert.match(sitemap, /https:\/\/leodah20\.github\.io\/runavolt-blog-publico\/demonstracao\//);
     assert.match(readFileSync(path.join(outDir, 'robots.txt'), 'utf8'), /Sitemap: https:\/\/leodah20\.github\.io\/runavolt-blog-publico\/sitemap\.xml/);
     assert.match(sitemap, /https:\/\/leodah20\.github\.io\/runavolt-blog-publico\/estudos\//);
   } finally {

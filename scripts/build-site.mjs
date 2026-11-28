@@ -332,7 +332,7 @@ function stripChapterChrome(markdown) {
     .replace(/^\n+/, '');
 }
 
-function renderPage({ title, description, canonical, base, bodyClass, content, extraHead = '', archCurrent = '', studiesCurrent = '' }) {
+function renderPage({ title, description, canonical, base, bodyClass, content, extraHead = '', archCurrent = '', studiesCurrent = '', demoCurrent = '' }) {
   return readFile(path.join(SITE_SRC, 'layout.html'), 'utf8')
     .then(layout => layout
       .replaceAll('{{CONTENT}}', content)
@@ -343,7 +343,8 @@ function renderPage({ title, description, canonical, base, bodyClass, content, e
       .replaceAll('{{BASE}}', base)
       .replaceAll('{{BODY_CLASS}}', bodyClass)
       .replaceAll('{{ARCH_CURRENT}}', archCurrent)
-      .replaceAll('{{STUDIES_CURRENT}}', studiesCurrent));
+      .replaceAll('{{STUDIES_CURRENT}}', studiesCurrent)
+      .replaceAll('{{DEMO_CURRENT}}', demoCurrent));
 }
 
 async function readChapters() {
@@ -465,13 +466,22 @@ function renderArticle(chapter, chapters) {
   ].join('\n');
 }
 
+const DEMO_MEDIA = [
+  'pc-fila.png', 'pc-resumo.png', 'pc-historico.png', 'pc-evidencias.png', 'pc-contexto.png',
+  'pc-triagem.png', 'pc-fechamento.png', 'pc-minuta.png', 'android.png', 'ios-web.png',
+  'tur-pc.mp4', 'tur-pc.vtt', 'tur-mobile.mp4', 'tur-mobile.vtt'
+];
+
 async function copyAssets(outDir) {
   const assets = path.join(outDir, 'assets');
   const mermaid = path.join(assets, 'vendor', 'mermaid');
   await mkdir(path.join(assets, 'fonts'), { recursive: true });
   await mkdir(path.join(assets, 'brand'), { recursive: true });
+  await mkdir(path.join(assets, 'demo'), { recursive: true });
   await mkdir(mermaid, { recursive: true });
   await cp(path.join(SITE_SRC, 'styles.css'), path.join(assets, 'styles.css'));
+  await cp(path.join(SITE_SRC, 'demo.css'), path.join(assets, 'demo.css'));
+  await Promise.all(DEMO_MEDIA.map(file => cp(path.join(SITE_SRC, 'demo-media', file), path.join(assets, 'demo', file))));
   await cp(path.join(SITE_SRC, 'orbit.svg'), path.join(assets, 'orbit.svg'));
   await cp(path.join(SITE_SRC, 'aurora.svg'), path.join(assets, 'aurora.svg'));
   await cp(path.join(SITE_SRC, 'field.css'), path.join(assets, 'field.css'));
@@ -490,6 +500,7 @@ async function copyAssets(outDir) {
 export async function buildSite({ outDir = DEFAULT_OUT } = {}) {
   await rm(outDir, { recursive: true, force: true });
   await mkdir(path.join(outDir, 'estudos'), { recursive: true });
+  await mkdir(path.join(outDir, 'demonstracao'), { recursive: true });
   await copyAssets(outDir);
 
   const chapters = await readChapters();
@@ -507,6 +518,18 @@ export async function buildSite({ outDir = DEFAULT_OUT } = {}) {
     archCurrent: ' aria-current="page"'
   });
   await writeFile(path.join(outDir, 'index.html'), home, 'utf8');
+
+  const demo = await renderPage({
+    title: 'Central de Chamados em ação · Runavolt',
+    description: 'Use a vitrine da Runavolt para ver as telas reais da Central de Chamados no PC e no celular, com capturas e vídeos em um cenário inteiramente fictício.',
+    canonical: SITE_URL + '/demonstracao/',
+    base: '../',
+    bodyClass: 'page-demo',
+    content: await readFile(path.join(SITE_SRC, 'demo.html'), 'utf8'),
+    extraHead: '<link rel="stylesheet" href="../assets/demo.css">',
+    demoCurrent: ' aria-current="page"'
+  });
+  await writeFile(path.join(outDir, 'demonstracao', 'index.html'), demo, 'utf8');
 
   const studiesContent = studiesTemplate.replaceAll('{{POSTS}}', renderStudyTracks(chapters))
     .replaceAll('{{POST_COUNT}}', String(chapters.length))
@@ -545,7 +568,7 @@ export async function buildSite({ outDir = DEFAULT_OUT } = {}) {
     base: './',
     bodyClass: 'page-not-found',
     content: [
-      '<section class="page-hero"><div class="container">',
+      '<section class="page-hero" data-light-field><div class="container">',
       '<p class="eyebrow">Erro 404</p>',
       '<h1>Esta página não existe</h1>',
       '<p class="lead">O endereço pode ter mudado ou o link está incompleto. Use a arquitetura ou o blog de estudos para continuar.</p>',
@@ -557,6 +580,7 @@ export async function buildSite({ outDir = DEFAULT_OUT } = {}) {
 
   const urls = [
     SITE_URL + '/',
+    SITE_URL + '/demonstracao/',
     SITE_URL + '/estudos/',
     ...chapters.map(chapter => `${SITE_URL}/estudos/${chapter.slug}.html`)
   ];
@@ -571,7 +595,7 @@ export async function buildSite({ outDir = DEFAULT_OUT } = {}) {
   await writeFile(path.join(outDir, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE_URL}/sitemap.xml\n`, 'utf8');
   await writeFile(path.join(outDir, '.nojekyll'), '', 'utf8');
 
-  return { outDir, chapters: chapters.length, pages: chapters.length + 3 };
+  return { outDir, chapters: chapters.length, pages: chapters.length + 4 };
 }
 
 const isMain = process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url;
